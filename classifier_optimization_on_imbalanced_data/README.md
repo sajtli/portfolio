@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Intrusion Detection on Imbalanced Data using Random Forest
 
 This project explores machine learning techniques for detecting network intrusions using the KDDCUP99 dataset. The focus is on addressing **class imbalance**, **sampling strategies**, and **hyperparameter optimization** to improve model performance.
@@ -88,6 +87,3 @@ Even with feature selection and dimensionality reduction, model performance rema
 ---
 
 Feel free to fork or star this repo if you find it useful!
-=======
-USEFUL INFO
->>>>>>> a3071b2318e1a3c6670e54f51df9ada5a7388127
