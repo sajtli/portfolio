@@ -17,19 +17,19 @@ This project demonstrates how to build a usable, fast, and entirely local text s
 
 ### 1. Clone the repository
 
-```bash
+bash
 git clone https://github.com/yourusername/offline-text-summarizer.git
 cd offline-text-summarizer
 
 ### 2. Create a virtual environment
 
-```bash
+bash
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 
 ### 3. Install dependencies
 
-```bash
+bash
 pip install -r requirements.txt
 
 💡 Currently empty — will be updated in future versions
@@ -40,12 +40,12 @@ Download from https://ollama.com/download
 
 Install the Mistral model:
 
-```bash
+bash
 ollama run mistral
 
 ### 5. Run summarizer
 
-```bash
+bash
 python summarizer.py sample_data/long_article.txt
 
 
