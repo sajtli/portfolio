@@ -18,7 +18,7 @@ This project demonstrates how to build a usable, fast, and entirely local text s
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/offline-text-summarizer.git
+git clone https://github.com/sajtli/offline-text-summarizer.git
 cd offline-text-summarizer
 ```
 
@@ -161,22 +161,6 @@ AI is like a super-smart robot helping people in hospitals, banks, and schools. 
 | ⬜     | Dockerized API version                               |
 | ⬜     | Hugging Face Space deployment (optional online demo) |
 | ⬜     | Blog post walkthrough                                |
-
----
-
-## Folder Structure
-
-```
-offline-text-summarizer/
-├── summarizer.py
-├── requirements.txt
-├── sample_data/
-│   └── long_article.txt
-├── models/
-│   └── README.md
-├── README.md
-└── .gitignore
-```
 
 ---
 
