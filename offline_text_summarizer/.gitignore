@@ -1,0 +1,39 @@
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*.so
+*.dll
+*.dylib
+*.pyd
+
+# Virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+# VSCode / IntelliJ / PyCharm settings
+.vscode/
+.idea/
+
+# Local data & logs
+*.log
+*.tmp
+*.bak
+.DS_Store
+
+# Model files (GGUF)
+*.gguf
+
+# Python distribution / build
+build/
+dist/
+*.egg-info/
+
+# Jupyter & IPython
+.ipynb_checkpoints/
+*.ipynb
+
+# OS-specific
+Thumbs.db
+desktop.ini
