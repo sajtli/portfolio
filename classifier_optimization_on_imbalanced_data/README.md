@@ -48,11 +48,11 @@ To build a robust classifier that can accurately detect minority (attack) classe
 
 **Performance metrics without parameter optimization**
 
-| Sampling strategy    | CV F1-score | Train F1-score | Test F1-score  | Train Precision | Test Precision | Train TPR   | Test TPR   | Train FPR | Test FPR |
-| ---------------------| ----------- | -------------- | -------------- | --------------- | -------------- | ----------- | ---------- | --------- | ---------- |
-| No sampling          | 0.9988      | 1.0            | 0.9991         | 100 %           | 99.98 %        | 99.99 %     | 99.84 %    | 0.0 %     | 0.01 %     |
-| Random over-sampling | 0.9993      | 1.0            | 0.9991         | 100 %           | 99.97 %        | 100 %       | 99.86 %    | 0.0 %     | 0.02 %     |
-| SMOTE                | 0.9991      | 1.0            | 0.9990         | 100 %           | 99.96 %        | 100 %       | 99.85 %    | 0.0 %     | 0.03 %     |
+| Sampling strategy    | CV F1-score | Train F1-score | Test F1-score  | Train Precision | Test Precision | Train TPR | Test TPR | Train FPR | Test FPR |
+| ---------------------| ----------- | -------------- | -------------- | --------------- | -------------- | --------- | -------- | --------- | -------- |
+| No sampling          | 0.9988      | 1.0            | 0.9991         | 100 %           | 99.98 %        | 99.99 %   | 99.84 %  | 0.0 %     | 0.01 %   |
+| Random over-sampling | 0.9993      | 1.0            | 0.9991         | 100 %           | 99.97 %        | 100 %     | 99.86 %  | 0.0 %     | 0.02 %   |
+| SMOTE                | 0.9991      | 1.0            | 0.9990         | 100 %           | 99.96 %        | 100 %     | 99.85 %  | 0.0 %     | 0.03 %   |
 
 
 **Performance metrics with parameter optimization**
