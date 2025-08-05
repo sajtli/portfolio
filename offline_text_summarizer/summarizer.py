@@ -24,7 +24,15 @@ style_prompts = {
     "steps": "Convert this text into a clear step-by-step guide."
 }
 
-def summarize(text, style="default", custom_prompt=None, max_words=None):
+def summarize(text, style="default", custom_prompt=None, max_words=None, max_output_words=None):
+    # Input truncation
+    if max_words:
+        words = text.split()
+        if len(words) > max_words:
+            text = " ".join(words[:max_words])
+            print(Fore.MAGENTA + f"\n⚠️ Input truncated to first {max_words} words.\n" + Style.RESET_ALL)
+
+    # Build prompt
     if custom_prompt:
         prompt = f"{custom_prompt}\n\n{text}\n\nSummary:"
     else:
@@ -33,11 +41,6 @@ def summarize(text, style="default", custom_prompt=None, max_words=None):
             return None
         prompt = f"{style_prompts[style]}\n\n{text}\n\nSummary:"
 
-    if max_words:
-        words = text.split()
-        if len(words) > max_words:
-            text = " ".join(words[:max_words]) + "\n\n[Text truncated for length.]"
-
     print(Fore.YELLOW + "\n⏳ Running local LLM via Ollama (mistral)...\n" + Style.RESET_ALL)
     result = subprocess.run(
         ["ollama", "run", "mistral"],
@@ -45,7 +48,16 @@ def summarize(text, style="default", custom_prompt=None, max_words=None):
         capture_output=True
     )
 
-    return result.stdout.decode().strip()
+    summary = result.stdout.decode().strip()
+
+    # Output truncation
+    if max_output_words:
+        output_words = summary.split()
+        if len(output_words) > max_output_words:
+            summary = " ".join(output_words[:max_output_words])
+            print(Fore.MAGENTA + f"\n⚠️ Output truncated to first {max_output_words} words.\n" + Style.RESET_ALL)
+
+    return summary
 
 def read_text_file(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
@@ -64,6 +76,7 @@ def main():
                         help="Choose a predefined summary style")
     parser.add_argument("--custom-prompt", type=str, help="Use a custom prompt instead of predefined styles")
     parser.add_argument("--max-words", type=int, help="Maximum number of input words to process")
+    parser.add_argument("--max-output-words", type=int, help="Maximum number of words allowed in the output summary")
 
     args = parser.parse_args()
 
@@ -81,7 +94,7 @@ def main():
         return
 
     text = read_text_file(input_path)
-    summary = summarize(text, style=args.style, custom_prompt=args.custom_prompt, max_words=args.max_words)
+    summary = summarize(text, style=args.style, custom_prompt=args.custom_prompt, max_words=args.max_words, max_output_words=args.max_output_words)
 
     if summary:
         print(Fore.GREEN + "\n✅ Summary:\n" + Style.RESET_ALL)
