@@ -1,100 +1,77 @@
 # Offline Text Summarizer with LLMs
 
-A fully offline, local-first text summarization tool powered by open-source large language models (LLMs) like Mistral — no APIs, no cloud, no internet needed after setup.
+Run local, GPU-accelerated text summarization using open-source large language models — no internet, no APIs, no tokens required.
 
-## Project Overview
-
-This project demonstrates how to build a usable, fast, and entirely local text summarization pipeline using quantized LLMs via [Ollama](https://ollama.com/). It's designed as a data science portfolio project with a focus on:
-
-- Local deployment & LLM performance
-- Prompt design for summarization styles
-- CLI tools and argument parsing
-- GUI, evaluation, and explainability (planned)
+Built as a real-world project for my data science portfolio, this CLI tool summarizes any `.txt` file using [Mistral 7B Instruct](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1), powered by `llama-cpp-python`.
 
 ---
 
-## How to Run It
+## Features (Phase 2)
 
-### 1. Clone the repository
+- Works 100% offline with quantized `.gguf` models
+- Powered by [llama-cpp-python](https://github.com/abetlen/llama-cpp-python) + CUDA (GPU acceleration)
+- Choose from 12+ summary styles (executive, tweet, bullet, legal, poetic, etc.)
+- Option to use your own custom prompt
+- Control the max output length via `--max-tokens`
+- Colorized terminal output with `colorama`
 
-```bash
-git clone https://github.com/sajtli/offline-text-summarizer.git
-cd offline-text-summarizer
+---
+
+## Installation
+
+1. Install Python 3.11  
+2. Install [CUDA Toolkit 12.4](https://developer.nvidia.com/cuda-12-4-0-download-archive)  
+3. Clone this repo:
+   ```bash
+   git clone https://github.com/tdhorvathds/offline_text_summarizer.git
+   cd offline_text_summarizer
+   ```
+4. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+---
+
+## Model Setup
+
+Download the [Mistral-7B-Instruct-v0.1 Q4_K_M .gguf model](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF) and place it here:
+
 ```
-
-### 2. Create a virtual environment
-
-```bash
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-```
-
-### 3. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-Currently empty — will be updated in future versions
-
-### 4. Install and set up Ollama
-
-- Download from: [https://ollama.com/download](https://ollama.com/download)
-
-Install the Mistral model:
-
-```bash
-ollama run mistral
-```
-
-### 5. Run the summarizer
-
-```bash
-python summarizer.py sample_data/long_article.txt
+C:/Users/yourusername/llama/models/mistral-7b-instruct-v0.1.Q4_K_M.gguf
 ```
 
 ---
 
-## Features (Phase 1)
+## How to Use
 
-- [x] Summarize plain text files via terminal
-- [x] Works completely offline after setup
-- [x] Uses local Mistral model via Ollama
-- [x] Supports multiple summary styles
-- [x] Optional word-length input limiting
-- [x] Custom prompt input
-- [x] Colorized CLI output
-
----
-
-## 🛠 CLI Options
+### List available summary styles:
 
 ```bash
-python summarizer.py <input_file.txt> [--style STYLE] [--max-words N] [--custom-prompt PROMPT]
-```
-
-### Examples
-
-```bash
-# Default style
-python summarizer.py sample_data/long_article.txt
-
-# Bullet-point summary
-python summarizer.py sample_data/long_article.txt --style bullet
-
-# Limit input to 200 words
-python summarizer.py sample_data/long_article.txt --max-words 200
-
-# Custom prompt example
-python summarizer.py sample_data/long_article.txt --custom-prompt "Summarize this like a Shakespearean sonnet"
-
-# List all available styles
 python summarizer.py list
 ```
 
+### Run with a predefined style:
+
+```bash
+python summarizer.py sample_data/article.txt --style executive
+```
+
+### Use a custom prompt:
+
+```bash
+python summarizer.py sample_data/report.txt --custom-prompt "Summarize for a LinkedIn post"
+```
+
+### Limit output length:
+
+```bash
+python summarizer.py sample_data/paper.txt --style bullet --max-tokens 150
+```
+
 ---
 
-## Available Styles
+## Summary Styles Available
 
 You can choose from the following summary styles:
 
@@ -117,40 +94,26 @@ You can choose from the following summary styles:
 
 ---
 
-## Sample Output Examples
+## Why This Project?
 
-#### 🔹 Style: `bullet`
+This project is part of my personal data science portfolio. I wanted to:
 
-```text
-🔸 The rise of AI is transforming industries  
-🔸 Healthcare uses AI for diagnosis and precision surgery  
-🔸 Finance leverages AI for fraud detection and trading  
-🔸 Concerns include ethics, privacy, and job loss  
-🔸 Experts urge responsible regulation
-```
-
-#### 🔹 Style: `tweet`
-
-```text
-AI is reshaping everything—from medicine to money—faster than ever. Great power, great responsibility. Stay curious, stay cautious. #AI
-```
-
-#### 🔹 Style: `simple`
-
-```text
-AI is like a super-smart robot helping people in hospitals, banks, and schools. But we need to be careful, so it doesn't cause problems like job loss or unfair treatment.
-```
+- Learn how to work directly with local LLMs and quantized models
+- Explore performance with CUDA + `llama-cpp`
+- Build a practical NLP tool with real command-line usability
+- Document my workflow for future experiments and employers
 
 ---
 
 ## Roadmap
 
-| Status | Feature                                              |
-|--------|------------------------------------------------------|
+| Status | Feature                                                      |
+|--------|--------------------------------------------------------------|
 | ✅     | Terminal summarizer with local Mistral model         |
 | ✅     | Summary style selector                               |
 | ✅     | Word limit + prompt truncation                       |
 | ✅     | Custom prompt support                                |
+| ✅     | GPU-accelerated summarization using llama-cpp & Mistral 7B  |
 | 🟡     | Streamlit or Gradio-based GUI                        |
 | 🟡     | PDF input support                                    |
 | 🟡     | Web article scraping (offline-safe)                  |
@@ -164,21 +127,15 @@ AI is like a super-smart robot helping people in hospitals, banks, and schools. 
 
 ---
 
-## Notes
+## Credits
 
-- The model is run via subprocess calls to `ollama run mistral` for simplicity.
-- You can swap in other Ollama-supported models like `llama3`, `gemma`, or `codellama`.
-- Later versions will use `llama-cpp-python` directly for full control and speed.
+- [Mistral-7B-Instruct](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1)
+- [llama-cpp-python](https://github.com/abetlen/llama-cpp-python)
+- [TheBloke GGUF Models](https://huggingface.co/TheBloke)
 
 ---
 
 ## Author
 
-Built by Tamas David Horvath — Mechatronical Engineer, Data Scientist & LLM Enthusiast  
-📫 [LinkedIn/GitHub link here]
-
----
-
-## License
-
-MIT License
+Built by [Tamas David Horvath](https://github.com/tdhorvathds)  
+Let's connect on [LinkedIn](https://www.linkedin.com/in/tdhorvathds/)

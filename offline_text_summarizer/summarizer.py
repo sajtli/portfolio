@@ -29,6 +29,28 @@ style_prompts = {
     "steps": "Convert this into a step-by-step guide."
 }
 
+
+
+def smart_truncate(text, max_words=150):
+    import re
+    words = text.split()
+    if len(words) <= max_words:
+        return text
+
+    truncated = " ".join(words[:max_words + 20])
+    sentences = re.split(r'(?<=[.!?])\s+', truncated)
+
+    clean = ""
+    count = 0
+    for sentence in sentences:
+        word_count = len(sentence.split())
+        if count + word_count > max_words:
+            break
+        clean += sentence.strip() + " "
+        count += word_count
+
+    return clean.strip()
+
 def summarize(text, style="default", custom_prompt=None, max_tokens=200):
     if custom_prompt:
         prompt = f"{custom_prompt}\n\n{text}\n\nSummary:"
@@ -38,7 +60,7 @@ def summarize(text, style="default", custom_prompt=None, max_tokens=200):
     print(Fore.YELLOW + "\n⏳ Generating summary using Mistral..." + Style.RESET_ALL)
 
     response = llm(prompt, max_tokens=max_tokens, stop=["</s>"])
-    return response["choices"][0]["text"].strip()
+    return smart_truncate(response["choices"][0]["text"].strip(), max_words=max_tokens)
 
 def read_text_file(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
