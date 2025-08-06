@@ -29,9 +29,21 @@ style_prompts = {
     "steps": "Convert this into a step-by-step guide."
 }
 
-
-
 def smart_truncate(text, max_words=150):
+    """
+Truncates a given text to the nearest complete sentence under a word limit.
+
+This function ensures that the output does not exceed the specified word count
+while preserving grammatical coherence. It avoids cutting off the summary in
+the middle of a sentence by using sentence-ending punctuation as natural breakpoints.
+
+Parameters:
+    text (str): The full generated text to be truncated.
+    max_words (int): The maximum number of words allowed in the final output.
+
+Returns:
+    str: A truncated version of the input text that ends at a complete sentence.
+"""
     import re
     words = text.split()
     if len(words) <= max_words:
